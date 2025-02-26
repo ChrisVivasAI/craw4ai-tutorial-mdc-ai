@@ -33,7 +33,7 @@ You'll create a system that:
 
 ```bash
 # Clone the repository
-git clone https://github.com/unclecode/crawl4ai.git
+git clone https://github.com/ChrisVivasAI/craw4ai-tutorial-mdc-ai
 
 # Navigate to the project directory
 cd crawl4ai
@@ -180,35 +180,85 @@ Replace the placeholder values with your actual API keys and URLs.
 
 ### Step 7: Crawl Your First Website
 
-Now you're ready to crawl a website! Create a file named `crawl_website.py` with the following content:
+Now you're ready to crawl a website! Go to the crawl4ai-expert folder and click on the file named `test.py` with the following content:
 
 ```python
-import os
 import asyncio
-from crawl_crawl4ai_docs import main
+from crawl4ai import AsyncWebCrawler
+from crawl4ai.async_configs import BrowserConfig, CrawlerRunConfig
 
-# This will crawl the Crawl4AI documentation website
-# and store the content in your Supabase database
+async def main():
+    browser_config = BrowserConfig(
+        headless=False,  # Show browser for debugging
+        viewport_width=1366,
+        viewport_height=768,
+        text_mode=False,  # Keep images enabled
+        java_script_enabled=True,
+        verbose=True
+    )
+      # Default browser configuration
+    run_config = CrawlerRunConfig(
+    word_count_threshold=50,        # Minimum words per content block
+    exclude_external_links=True,    # Remove external links
+    remove_overlay_elements=True,   # Remove popups/modals
+    process_iframes=True           # Process iframe content
+)   # Default crawl run configuration
+
+    async with AsyncWebCrawler(config=browser_config) as crawler:
+        result = await crawler.arun(
+            url="https://www.nbcnews.com/artificial-intelligence",
+            config=run_config
+        )
+        print(result.markdown)  # Print clean markdown content
+
 if __name__ == "__main__":
     asyncio.run(main())
 ```
 
 Run the script:
 ```bash
-python crawl_website.py
+python test.py
 ```
 
-This will crawl the Crawl4AI documentation website and store the content in your Supabase database.
+This will crawl the Link next to url= you can change this if you want!
 
-### Step 8: Launch the Streamlit App
+Now you have crawled your first website! Look at the terminal to see the output.
 
-The repository includes a Streamlit app that lets you interact with your crawled data. To run it:
+### Step 8: Crawl Documentation and Launch the Streamlit App
+
+Before using the chat interface, you need to crawl the Crawl4AI documentation and store it in your Supabase database:
+
+1. First, run the crawler script to populate your database:
 
 ```bash
+# Navigate to the crawl4ai-expert folder
+cd crawl4ai-expert
+
+# Run the crawler script
+python crawl_crawl4ai_docs.py
+```
+
+This script will:
+- Crawl the Crawl4AI documentation website
+- Generate embeddings for each content chunk using OpenAI
+- Store the content and embeddings in your Supabase database
+- Display progress in the terminal as it crawls and saves content
+
+You'll see the crawler working in the terminal, showing each URL being processed and chunks being saved to Supabase. This process creates a semantic search index that the AI agent will use to answer your questions.
+
+2. After the crawling is complete, launch the Streamlit app:
+
+```bash
+# Make sure you're in the crawl4ai-expert folder
 streamlit run streamlit_ui.py
 ```
 
-This will open a web interface where you can ask questions about the crawled content!
+This will open a web interface where you can:
+- Ask questions about Crawl4AI
+- Get detailed answers based on the documentation
+- Learn how to use Crawl4AI for your own web scraping projects
+
+The AI agent uses the embeddings stored in your Supabase database to find relevant information and provide accurate answers to your questions about web scraping with Crawl4AI.
 
 ## 🧩 Understanding the Project Structure
 
