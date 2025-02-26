@@ -8,7 +8,7 @@
 
 </div>
 
-Welcome, Miami Dade College AI students! This guide will help you set up and use [Crawl4AI](https://github.com/unclecode/crawl4ai), an open-source web crawler and scraper designed for AI applications. By the end of this guide, you'll have a working RAG (Retrieval-Augmented Generation) system that can answer questions about any website you crawl.
+Welcome, Miami Dade College AI students! This guide will help you set up and use [Crawl4AI](https://github.com/unclecode/crawl4ai), an open-source web crawler and scraper designed for AI applications. By the end of this guide, you'll have a working RAG (Retrieval-Augmented Generation) system that can answer questions about Crawl4AI based on their Documentation (the Expert). Also you will have a test file where you can begin to implement what you and the expert imagine and come up with together in the Chat Ui! 
 
 ## 📋 Prerequisites
 
