@@ -56,7 +56,7 @@ source crawl4ai-env/bin/activate
 ```bash
 # Install the package and its dependencies
 pip install -U crawl4ai
-pip install streamlit supabase-py logfire python-dotenv openai
+pip install streamlit supabase logfire
 
 # Run post-installation setup
 crawl4ai-setup
